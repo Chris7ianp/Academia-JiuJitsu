@@ -1,0 +1,95 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Christian-Paulo\\Desktop\\DIO\\PariocaFight\\PariocaFight\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9B3DCBA0-06AE-42E2-8CF6-8519040B5561}|PariocaFight\\PariocaFight.csproj|c:\\users\\christian-paulo\\desktop\\dio\\pariocafight\\pariocafight\\pariocafight\\controllers\\cadastroalunocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B3DCBA0-06AE-42E2-8CF6-8519040B5561}|PariocaFight\\PariocaFight.csproj|solutionrelative:pariocafight\\controllers\\cadastroalunocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B3DCBA0-06AE-42E2-8CF6-8519040B5561}|PariocaFight\\PariocaFight.csproj|c:\\users\\christian-paulo\\desktop\\dio\\pariocafight\\pariocafight\\pariocafight\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9B3DCBA0-06AE-42E2-8CF6-8519040B5561}|PariocaFight\\PariocaFight.csproj|solutionrelative:pariocafight\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B3DCBA0-06AE-42E2-8CF6-8519040B5561}|PariocaFight\\PariocaFight.csproj|c:\\users\\christian-paulo\\desktop\\dio\\pariocafight\\pariocafight\\pariocafight\\views\\cadastros\\cadastroaluno.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9B3DCBA0-06AE-42E2-8CF6-8519040B5561}|PariocaFight\\PariocaFight.csproj|solutionrelative:pariocafight\\views\\cadastros\\cadastroaluno.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B3DCBA0-06AE-42E2-8CF6-8519040B5561}|PariocaFight\\PariocaFight.csproj|c:\\users\\christian-paulo\\desktop\\dio\\pariocafight\\pariocafight\\pariocafight\\services\\alunoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B3DCBA0-06AE-42E2-8CF6-8519040B5561}|PariocaFight\\PariocaFight.csproj|solutionrelative:pariocafight\\services\\alunoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Christian-Paulo\\Desktop\\DIO\\PariocaFight\\PariocaFight\\PariocaFight\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "PariocaFight\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Christian-Paulo\\Desktop\\DIO\\PariocaFight\\PariocaFight\\PariocaFight\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "PariocaFight\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAADgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-05T11:42:57.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CadastroAlunoController.cs",
+              "DocumentMoniker": "C:\\Users\\Christian-Paulo\\Desktop\\DIO\\PariocaFight\\PariocaFight\\PariocaFight\\Controllers\\CadastroAlunoController.cs",
+              "RelativeDocumentMoniker": "PariocaFight\\Controllers\\CadastroAlunoController.cs",
+              "ToolTip": "C:\\Users\\Christian-Paulo\\Desktop\\DIO\\PariocaFight\\PariocaFight\\PariocaFight\\Controllers\\CadastroAlunoController.cs",
+              "RelativeToolTip": "PariocaFight\\Controllers\\CadastroAlunoController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T23:03:31.356Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AlunoService.cs",
+              "DocumentMoniker": "C:\\Users\\Christian-Paulo\\Desktop\\DIO\\PariocaFight\\PariocaFight\\PariocaFight\\Services\\AlunoService.cs",
+              "RelativeDocumentMoniker": "PariocaFight\\Services\\AlunoService.cs",
+              "ToolTip": "C:\\Users\\Christian-Paulo\\Desktop\\DIO\\PariocaFight\\PariocaFight\\PariocaFight\\Services\\AlunoService.cs",
+              "RelativeToolTip": "PariocaFight\\Services\\AlunoService.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADcAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T23:02:08.553Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CadastroAluno.cshtml",
+              "DocumentMoniker": "C:\\Users\\Christian-Paulo\\Desktop\\DIO\\PariocaFight\\PariocaFight\\PariocaFight\\Views\\Cadastros\\CadastroAluno.cshtml",
+              "RelativeDocumentMoniker": "PariocaFight\\Views\\Cadastros\\CadastroAluno.cshtml",
+              "ToolTip": "C:\\Users\\Christian-Paulo\\Desktop\\DIO\\PariocaFight\\PariocaFight\\PariocaFight\\Views\\Cadastros\\CadastroAluno.cshtml",
+              "RelativeToolTip": "PariocaFight\\Views\\Cadastros\\CadastroAluno.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-12T20:03:07.569Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+﻿@* @{
+    ViewData["Title"] = "Cadastro de Alunos";
+}
+<h1>@ViewData["Title"]</h1> *@
+
+<style>
+    body {
+        background-color: #f2f2f2;
+    }
+
+    .centered {
+        text-align: center;
+    }
+
+</style>
+
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' />
+@* <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+@* <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> *@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+@* <p>Bem vindo(a) a página de Cadastro de Alunos</p> *@
+<div class="centered">
+    <img src="@Url.Content("~/imagens/logo.png")" alt="Logo" width="auto" height="130">
+</div>
+
+<br />
+
+
+
+<script>
+    //Buscar Aluno
+    $(document).on('change', '#Nome', function (e) {
+        $.ajax({
+            url: '/CadastroAluno/BuscarAluno',
+            type: "POST",
+            data: {
+                Nome: $('#Nome').val(),
+            },
+            success: function (result) {
+
+                if (result && result.nome) {
+                    console.log(result);
+
+                    $('#Nome').val(result.nome);
+                    $('#SobreNome').val(result.sobrenome);
+                    $('#Idade').val(result.idade);
+                    $('#Contato').val(result.contato);
+                    $('#Faixa').val(result.faixa);
+                    $('#NomeResponsavel').val(result.nomeResponsavel);
+
+                } else {
+
+                    alert("Cliente não cadastrado!");
+                }
+            },
+            error: function (xhr, status, error) {
+                $('#loading').hide();
+                console.error("Erro na requisição AJAX:", status, error);
+                alert("Erro na requisição ao servidor.");
+            }
+        });
+    });
+
+    $(document).on('click', '#btnSalvar', function () {
+        $.ajax({
+            url: '/CadastroAluno/SalvarAluno',
+            type: "POST",
+            data: {
+                Nome: $('#Nome').val(),
+                Sobrenome: $('#SobreNome').val(),
+                Idade: $('#Idade').val(),
+                Contato: $('#Contato').val(),
+                Faixa: $('#Faixa').val(),
+                NomeResponsavel: $('#NomeResponsavel').val(),            
+            },
+            
+            success: function (result) {
+                alert('Aluno salvo com sucesso!');
+
+                //window, location.reload(); atualizar a pagina
+            }, 
+            error: function (xhr, status, error) {
+                console.error('Erro ao salvar aluno:', error);
+                alert('Ocorreu um erro ao salvar o aluno. Tente novamente mais tarde.');
+            }
+        })
+    });
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Aluno</div>
+    <div class="panel-body" style="height:auto; margin-block-end:1px; ">
+
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputNome">Nome</label>
+                    <input type="text" class="form-control" id="Nome" maxlength="50">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="inputSobreNome">Sobrenome</label>
+                    <input type="text" class="form-control" id="SobreNome" maxlength="50">
+                </div>
+
+                <div class="form-group col-md-4" id="cpf">
+                    <label for="inputIdade">Idade</label>
+                    <input oninput="mascara(this)" type="text" class="form-control" id="Idade" maxlength="20">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputContato">Contato*</label>
+                    <input oninput="Contato(this)" type="text" class="form-control" id="Contato" maxlength="20">
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="inputFaixa">Faixa*</label>
+                    <input type="text" class="form-control" id="Faixa" maxlength="50">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputNomeResponsavel">Nome do Responsavél</label>
+                    <input type="text" class="form-control" id="NomeResponsavel" maxlength="50">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
+<button type="submit" class="btn btn-danger" id="btnCancelar">Cancelar</button>
+
