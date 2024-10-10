@@ -1,6 +1,6 @@
 ﻿namespace PariocaFight.VO
 {
-    public class Instrutores
+    public class InstrutoresVO
     {
         public int instrutorId { get; set; }
         public string? Nome { get; set; }

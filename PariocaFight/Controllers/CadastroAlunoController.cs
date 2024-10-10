@@ -38,7 +38,7 @@ namespace PariocaFight.Controllers
         {
             var alunoService = new AlunoService(_config);
             
-            var aluno = alunoService.SalvarAlunos(alunos);
+            var aluno = alunoService.SalvarAlunos(alunos).ToList();
 
             return JsonConvert.SerializeObject(aluno);
         }

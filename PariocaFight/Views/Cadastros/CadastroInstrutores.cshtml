@@ -34,26 +34,24 @@
 <script>
     $(document).on('change', '#Nome', function (e) {
         $.ajax({
-            url: '/CadastroAluno/BuscarAluno',
+            url: '/CadastroInstrutores/BuscarInstrutor',
             type: "POST",
             data: {
                 Nome: $('#Nome').val(),
             },
             success: function (result) {
 
-                if (result) {
+                if (result == null || result == 0) {
+                   
+                    alert("Cliente não cadastrado!");
+                } else {
                     console.log(result);
-                    
-                    
+
+
                     $('#Nome').val(result.nome);
                     $('#SobreNome').val(result.sobrenome);
-                    $('#Idade').val(result.idade);
-                    $('#Contato').val(result.contato);
                     $('#Faixa').val(result.faixa);
-                    $('#NomeResponsavel').val(result.nomeResponsavel);
-
-                } else {
-                    alert("Cliente não cadastrado!");
+                    $('#ArteMarcial').val(result.arteMarcial);
                 }
 
 
@@ -67,47 +65,64 @@
         });
 
     });
+
+
+    $(document).on('click', '#btnSalvar', function () {
+        $.ajax({
+            url: '/CadastroInstrutores/SalvarInstrutores',
+            type: "POST",
+            data: {
+                Nome: $('#Nome').val(),
+                Sobrenome: $('#SobreNome').val(),
+                Faixa: $('#Faixa').val(),
+                ArteMarcial: $('#ArteMarcial').val(),
+            },
+
+            success: function (result) {
+                alert('Instrutor salvo com sucesso!');
+
+                //window, location.reload(); atualizar a pagina
+            },
+            error: function (xhr, status, error) {
+                console.error('Erro ao salvar aluno:', error);
+                alert('Ocorreu um erro ao salvar o aluno. Tente novamente mais tarde.');
+            }
+        })
+    });
 </script>
 
 <div class="panel panel-default">
-    <div class="panel-heading">Aluno</div>
+    <div class="panel-heading">Instrutor 🥋</div>
     <div class="panel-body" style="height:auto; margin-block-end:1px; ">
 
         <form>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="inputNome">Nome</label>
                     <input type="text" class="form-control" id="Nome" maxlength="50">
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="inputSobreNome">Sobrenome</label>
                     <input type="text" class="form-control" id="SobreNome" maxlength="50">
                 </div>
 
-                <div class="form-group col-md-4" id="cpf">
-                    <label for="inputIdade">Idade</label>
-                    <input oninput="mascara(this)" type="text" class="form-control" id="Idade" maxlength="20">
-                </div>
+                
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="inputContato">Contato*</label>
-                    <input oninput="Contato(this)" type="text" class="form-control" id="Contato" maxlength="20">
-                </div>
-                <div class="form-group col-md-8">
+                
+                <div class="form-group col-md-6">
                     <label for="inputFaixa">Faixa*</label>
                     <input type="text" class="form-control" id="Faixa" maxlength="50">
                 </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="inputNomeResponsavel">Nome do Responsavél</label>
-                    <input type="text" class="form-control" id="NomeResponsavel" maxlength="50">
+                <div class="form-group col-md-6">
+                    <label for="inputArteMarcial">Arte Marcial</label>
+                    <input type="text" class="form-control" id="ArteMarcial" maxlength="50">
                 </div>
             </div>
+
+           
 
         </form>
     </div>

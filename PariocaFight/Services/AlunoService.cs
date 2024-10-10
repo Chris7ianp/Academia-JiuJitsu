@@ -53,7 +53,8 @@ namespace PariocaFight.Services
                         var insertAlunos = $@"INSERT INTO Alunos(nome, Sobrenome, Idade, Faixa, Contato, NomeResponsavel)
 	                                                      values('{alunos.Nome}', '{alunos.Sobrenome}', '{alunos.Idade}', '{alunos.Faixa}', '{alunos.Contato}', '{alunos.NomeResponsavel}')";
 
-                        conn.Execute(insertAlunos, null, trans);
+                        var result = conn.Execute(insertAlunos, null, trans);
+                        
                     }
                     else
                     {
@@ -69,8 +70,10 @@ namespace PariocaFight.Services
                         conn.Execute(updateAlunos, null, trans);
                     }
 
-                    trans.Commit();
                     querys = resultado;
+
+                    trans.Commit();
+                    
                 }
                 catch (Exception ex)
                 {
