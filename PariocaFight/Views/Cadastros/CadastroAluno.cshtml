@@ -68,6 +68,7 @@
         });
     });
 
+    //Salvar (insert || update)
     $(document).on('click', '#btnSalvar', function () {
         $.ajax({
             url: '/CadastroAluno/SalvarAluno',
@@ -91,6 +92,16 @@
                 alert('Ocorreu um erro ao salvar o aluno. Tente novamente mais tarde.');
             }
         })
+    });
+
+    //Botão Cancelar
+    $(document).on('click', '#btnCancelar', function () {
+        $('#Nome').val('');
+        $('#SobreNome').val('');
+        $('#Idade').val('');
+        $('#Contato').val('');
+        $('#Faixa').val('');
+        $('#NomeResponsavel').val('');
     });
 </script>
 

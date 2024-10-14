@@ -3,15 +3,6 @@
 }
 <h1>@ViewData["Title"]</h1> *@
 
-<style>
-    body{
-        background-color: #f2f2f2;
-    }
-
-    .centered {
-        text-align: center;
-    }
-</style>
 
 <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' />
 
@@ -23,6 +14,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
+
+
+
+<style>
+    body {
+        background-color: #f2f2f2;
+    }
+
+    .centered {
+        text-align: center;
+    }
+
+</style>
+
+
 <div class="centered">
     <img src="@Url.Content("~/imagens/logo.png")" alt="Logo" width="auto" height="130">
 </div>
@@ -32,6 +39,7 @@
 
 
 <script>
+    //Botão Buscar
     $(document).on('change', '#Nome', function (e) {
         $.ajax({
             url: '/CadastroInstrutores/BuscarInstrutor',
@@ -67,6 +75,7 @@
     });
 
 
+    //Botão Salvar (insert || update)
     $(document).on('click', '#btnSalvar', function () {
         $.ajax({
             url: '/CadastroInstrutores/SalvarInstrutores',
@@ -88,6 +97,14 @@
                 alert('Ocorreu um erro ao salvar o aluno. Tente novamente mais tarde.');
             }
         })
+    });
+
+    //Botão Cancelar
+    $(document).on('click', '#btnCancelar', function () {
+        $('#Nome').val('');
+        $('#SobreNome').val('');
+        $('#Faixa').val('');
+        $('#ArteMarcial').val('');
     });
 </script>
 
@@ -131,4 +148,3 @@
 
 <button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
 <button type="submit" class="btn btn-danger" id="btnCancelar">Cancelar</button>
-
