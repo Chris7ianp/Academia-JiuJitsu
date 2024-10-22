@@ -1,0 +1,154 @@
+﻿@* @{
+    ViewData["Title"] = "Cadastro de Alunos";
+}
+<h1>@ViewData["Title"]</h1> *@
+
+@model PariocaFight.VO.AulasVO
+
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' />
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+
+
+<style>
+    body {
+        background-color: #f2f2f2;
+    }
+
+    .centered {
+        text-align: center;
+    }
+
+</style>
+
+
+<div class="centered">
+    <img src="@Url.Content("~/imagens/logo.png")" alt="Logo" width="auto" height="130">
+</div>
+<br />
+<br />
+
+
+
+<script>
+    //Botão Buscar
+    $(document).on('change', '#NomeAula', function (e) {
+        $.ajax({
+            url: '/CadastroAulas/BuscarAula',
+            type: "POST",
+            data: {
+                nomeAula: $('#NomeAula').val(),
+            },
+            success: function (result) {
+
+                if (result == null || result == 0) {
+                   
+                    alert("Aula não cadastrada!");
+                    $('#Horario').val('');
+                    $('#DiaSemana').val('');
+                    $('#Instrutor').val('');
+                } else {
+                    console.log(result);
+
+
+                    $('#NomeAula').val(result.nomeAula);
+                    $('#Horario').val(result.horarioFormatado);
+                    $('#DiaSemana').val(result.diaSemana);
+                    $('#Instrutor').val(result.nome);
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                $('#loading').hide();
+                console.error("Erro na requisição AJAX:", status, error);
+                alert("Erro na requisição ao servidor.");
+            }
+
+        });
+
+    });
+
+
+    //Botão Salvar (insert || update)
+    $(document).on('click', '#btnSalvar', function () {
+        $.ajax({
+            url: '/CadastroAulas/SalvarAulas',
+            type: "POST",
+            data: {
+                nomeAula: $('#NomeAula').val(),
+                horarioFormatado: $('#Horario').val(),
+                diaSemana: $('#DiaSemana').val(),
+                nome: $('#Instrutor').val()
+            },
+
+            success: function (result) {
+                alert('Instrutor salvo com sucesso!');
+
+                //window, location.reload(); atualizar a pagina
+            },
+            error: function (xhr, status, error) {
+                console.error('Erro ao salvar aluno:', error);
+                alert('Ocorreu um erro ao salvar o aluno. Tente novamente mais tarde.');
+            }
+        })
+    });
+
+    //Botão Cancelar
+    $(document).on('click', '#btnCancelar', function () {
+        $('#NomeAula').val('');
+        $('#Horario').val('');
+        $('#DiaSemana').val('');
+        $('#Instrutor').val('');
+    });
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Aulas 📚</div>
+    <div class="panel-body" style="height:auto; margin-block-end:1px; ">
+
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputNomeAula">Nome da Aula</label>
+                    <input type="text" class="form-control" id="NomeAula" maxlength="50">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputDiaSemana">Dia da Semana</label>
+                    <input type="text" class="form-control" id="DiaSemana" maxlength="50">
+                </div>
+
+                
+            </div>
+
+            <div class="form-row">
+                
+                <div class="form-group col-md-6">
+                    <label for="inputHorario">Horario</label>
+                    <input type="time" class="form-control" id="Horario" maxlength="50">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputInstrutor">Instrutor</label>
+                    <input type="text" class="form-control" id="Instrutor" values="@Model.Nome" maxlength="50">
+                </div>
+            </div>
+
+           
+
+        </form>
+    </div>
+</div>
+
+
+<button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
+<button type="submit" class="btn btn-danger" id="btnCancelar">Cancelar</button>

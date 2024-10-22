@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PariocaFight")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8bf2f33dab23f2f5e06925165896908c6484ed6b")]
 [assembly: System.Reflection.AssemblyProductAttribute("PariocaFight")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PariocaFight")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

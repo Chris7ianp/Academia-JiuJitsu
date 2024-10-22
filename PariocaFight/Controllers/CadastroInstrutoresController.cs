@@ -40,6 +40,5 @@ namespace PariocaFight.Controllers
 
             return JsonConvert.SerializeObject(instrutor);
         }
-
     }
 }
