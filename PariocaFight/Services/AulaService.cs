@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Humanizer;
 using Microsoft.Data.SqlClient;
 using PariocaFight.VO;
 
@@ -35,6 +36,19 @@ namespace PariocaFight.Services
             }
         }
 
+        public List<AulasVO> BuscarInstrutor()
+        {
+            using (var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+            {
+                var selectInstrutor = $@"select nome, InstrutorId from Instrutores";
+
+                var result = conn.Query<AulasVO>(selectInstrutor).ToList();
+
+                return result;
+            }
+
+        }
+
 
         public List<string> SalvarAulas(AulasVO aulas)
         {
@@ -64,24 +78,29 @@ namespace PariocaFight.Services
 
                     var resultado = conn.Query<AulasVO>(selectAula, null, trans).ToList();
 
+                    var instId = $@"select InstrutorId from Instrutores where nome = '{aulas.Nome}'";
+
+                    var idInstrutor = conn.Query<int>(instId, null, trans).FirstOrDefault();
+
                     if (resultado.Count() == 0)
                     {
-                        var instrutor = "";
+                        //var instId = $@"select InstrutorId from Instrutores where nome = '{aulas.Nome}'";
 
-                        foreach(var item in resultado)
-                        {
-                            instrutor = item.Nome;
-                        }
+                        //var idInstrutor = conn.Query<int>(instId, null, trans).FirstOrDefault();
 
 
-                        var insertAula = $@"insert into Aulas (DiaSemana,                    NomeAula,           horario)
-                                                       values ('{aulas.DiaSemana}',  '{aulas.NomeAula}', '{aulas.HorarioFormatado}' )";
+                        var insertAula = $@"insert into Aulas (nomeAula, horario, diaSemana, instrutorId)
+                                                       values ('{aulas.NomeAula}', '{aulas.HorarioFormatado}', '{aulas.DiaSemana}', '{idInstrutor}')";
 
                         querys.Add(insertAula);
                     }
                     else
                     {
-                        var updateAulas = $@"";
+                        var updateAulas = $@"update aulas set horario = '{aulas.HorarioFormatado}',
+												 nomeAula = '{aulas.NomeAula}',
+												 diaSemana = '{aulas.DiaSemana}',
+												 instrutorId = '{idInstrutor}'
+											where nomeAula = '{aulas.NomeAula}'";
 
                         querys.Add(updateAulas);
                     }

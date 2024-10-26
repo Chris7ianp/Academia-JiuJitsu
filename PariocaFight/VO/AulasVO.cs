@@ -9,8 +9,8 @@
         public string? NomeAula { get; set; }
         public string? HorarioFormatado { get; set; }
         public string? Nome { get; set; }
-        
 
+        public List<InstrutoresVO> instrutoresVO { get; set; }
 
     }
 }

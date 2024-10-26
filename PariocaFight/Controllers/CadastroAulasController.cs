@@ -30,20 +30,41 @@ namespace PariocaFight.Controllers
 
             var aulas = aulaService.ObterAulas(nomeAula);
 
-            if(aulas != null)
-            {
-                var instrutor = instrutores.ObterInstrutores(aulas.Nome);
+            var instrutor = aulaService.BuscarInstrutor();
 
-                aulas.Nome = instrutor.Nome;
-            }
+            //foreach(var ins in instrutor)
+            //{
+            //    aulas.Nome = ins.Nome;
+            //}
 
-            //var instrutor = instrutores.ObterInstrutores(aulas.Nome);
+            //if(aulas != null)
+            //{
+            //    var instrutor = instrutores.ObterInstrutores(aulas.Nome);
 
-            //aulas.Nome = instrutor.Nome;
+            //    aulas.Nome = instrutor.Nome;
+            //}
+
+            ////var instrutor = instrutores.ObterInstrutores(aulas.Nome);
+
+            ////aulas.Nome = instrutor.Nome;
 
             return Json(aulas);
         }
 
+
+        public ActionResult BuscarInstrutor(string nome)
+        {
+            var aulaService = new AulaService(_config);
+            var aulaVo = new AulasVO();
+
+            var instrutores = aulaService.BuscarInstrutor();
+
+            //intergracaoDeParaVO.IdDescricao = result.Select(s => new IdDescricaoVO { Id = s.Id, Descricao = string.Concat(s.Id, " - ", s.Descricao) }).ToList();
+
+            aulaVo.instrutoresVO = instrutores.Select(s => new InstrutoresVO { Nome = s.Nome, instrutorId = s.InstrutorId }).ToList();
+
+            return Json(aulaVo.instrutoresVO);
+        }
 
         public string SalvarAulas(AulasVO aulas)
         {

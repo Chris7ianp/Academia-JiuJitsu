@@ -40,6 +40,13 @@
 
 
 <script>
+
+    $(document).ready(function () {
+       
+        ObterInstrutor();
+
+    });
+
     //Botão Buscar
     $(document).on('change', '#NomeAula', function (e) {
         $.ajax({
@@ -50,7 +57,7 @@
             },
             success: function (result) {
 
-                if (result == null || result == 0) {
+                if (result == null && result == 0) {
                    
                     alert("Aula não cadastrada!");
                     $('#Horario').val('');
@@ -63,7 +70,7 @@
                     $('#NomeAula').val(result.nomeAula);
                     $('#Horario').val(result.horarioFormatado);
                     $('#DiaSemana').val(result.diaSemana);
-                    $('#Instrutor').val(result.nome);
+                    $('#instrutor').val(result.nome);
                 }
 
 
@@ -79,6 +86,26 @@
     });
 
 
+    function ObterInstrutor() {
+
+        var selectbox = $('#instrutor');
+        $('#instrutor').html("<option value='0'>Selecione</option>");
+
+        $.ajax({
+            url: '/CadastroAulas/BuscarInstrutor',
+            type: "POST",
+
+            success: function (data) {
+                var options = '';
+
+                $.each(data, function (i, d) {
+
+                    selectbox.append('<option value="' + d.nome + '">' + d.nome + '</option>');
+                });
+            }
+        });
+    }
+
     //Botão Salvar (insert || update)
     $(document).on('click', '#btnSalvar', function () {
         $.ajax({
@@ -88,11 +115,12 @@
                 nomeAula: $('#NomeAula').val(),
                 horarioFormatado: $('#Horario').val(),
                 diaSemana: $('#DiaSemana').val(),
-                nome: $('#Instrutor').val()
+                nome: $('#instrutor').val()
             },
 
             success: function (result) {
                 alert('Instrutor salvo com sucesso!');
+                
 
                 //window, location.reload(); atualizar a pagina
             },
@@ -108,7 +136,7 @@
         $('#NomeAula').val('');
         $('#Horario').val('');
         $('#DiaSemana').val('');
-        $('#Instrutor').val('');
+        $('#instrutor').val(0);
     });
 </script>
 
@@ -138,8 +166,9 @@
                     <input type="time" class="form-control" id="Horario" maxlength="50">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputInstrutor">Instrutor</label>
-                    <input type="text" class="form-control" id="Instrutor" values="@Model.Nome" maxlength="50">
+                    <label for="Instrutor">Instrutor</label>
+                    <select id="instrutor" class="form-control"></select>
+
                 </div>
             </div>
 
