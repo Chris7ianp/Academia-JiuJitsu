@@ -35,73 +35,41 @@
 
 
 <script>
-    //Buscar Aluno
-    $(document).on('change', '#Nome', function (e) {
+    
+    //Salvar (insert || update)
+    $(document).on('click', '#btnSalvar', function () {
         $.ajax({
-            url: '/CadastroAluno/BuscarAluno',
+            url: '/CadastroPagamentos/SalvarPagamento',
             type: "POST",
             data: {
-                Nome: $('#Nome').val(),
+                pagamento: {
+                    FormaPagamento: $('#pagamento').val(),
+                    Valor: $('#valor').val(),
+                    Status: $('#status').val(),
+                    DataPagamento: $('#DtPagamento').val(),
+                    Nome: $('#aluno').val()
+                },
+                nome: $('#aluno').val()
             },
             success: function (result) {
-
-                if (result && result.nome) {
-                    console.log(result);
-
-                    $('#Nome').val(result.nome);
-                    $('#SobreNome').val(result.sobrenome);
-                    $('#Idade').val(result.idade);
-                    $('#Contato').val(result.contato);
-                    $('#Faixa').val(result.faixa);
-                    $('#NomeResponsavel').val(result.nomeResponsavel);
-
-                } else {
-
-                    alert("Aluno não cadastrado!");
-                }
+                alert('Pagamento salvo com sucesso!');
+                // window.location.reload(); // para atualizar a página, se necessário
             },
             error: function (xhr, status, error) {
-                $('#loading').hide();
-                console.error("Erro na requisição AJAX:", status, error);
-                alert("Erro na requisição ao servidor.");
+                console.error('Erro ao salvar pagamento:', error);
+                alert('Ocorreu um erro ao salvar o pagamento. Tente novamente mais tarde.');
             }
         });
     });
 
-    //Salvar (insert || update)
-    $(document).on('click', '#btnSalvar', function () {
-        $.ajax({
-            url: '/CadastroAluno/SalvarAluno',
-            type: "POST",
-            data: {
-                Nome: $('#Nome').val(),
-                Sobrenome: $('#SobreNome').val(),
-                Idade: $('#Idade').val(),
-                Contato: $('#Contato').val(),
-                Faixa: $('#Faixa').val(),
-                NomeResponsavel: $('#NomeResponsavel').val(),            
-            },
-            
-            success: function (result) {
-                alert('Aluno salvo com sucesso!');
-
-                //window, location.reload(); atualizar a pagina
-            }, 
-            error: function (xhr, status, error) {
-                console.error('Erro ao salvar aluno:', error);
-                alert('Ocorreu um erro ao salvar o aluno. Tente novamente mais tarde.');
-            }
-        })
-    });
 
     //Botão Cancelar
     $(document).on('click', '#btnCancelar', function () {
-        $('#Nome').val('');
-        $('#SobreNome').val('');
-        $('#Idade').val('');
-        $('#Contato').val('');
-        $('#Faixa').val('');
-        $('#NomeResponsavel').val('');
+        $('#pagamento').val('');
+        $('#valor').val('');
+        $('#status').val('')
+        $('#DtPagamento').val('')
+        $('#aluno').val('');
     });
 </script>
 
@@ -113,13 +81,13 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inputValor">Forma de Pagamento</label>
-                <select class="form-select form-control" aria-label="Default select example">
-                    <option selected>Selecione</option>
-                    <option value="debito">Débito</option>
-                    <option value="credito">Crédito</option>
-                    <option value="pix">Pix</option>
+                    <select class="form-select form-control" id="pagamento" aria-label="Default select example">
+                        <option selected>Selecione</option>
+                        <option value="debito">Débito</option>
+                        <option value="credito">Crédito</option>
+                        <option value="pix">Pix</option>
                         <option value="dinheiro">Dinheiro</option>
-                </select>
+                    </select>
                 </div>
 
                 <div class="form-group col-md-4">
@@ -129,7 +97,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="inputstatus">Status</label>
-                    <input  type="text" class="form-control" id="status" maxlength="20">
+                    <input type="text" class="form-control" id="status" maxlength="20">
                 </div>
             </div>
 
@@ -139,8 +107,8 @@
                     <input type="date" class="form-control" id="DtPagamento" maxlength="20">
                 </div>
                 <div class="form-group col-md-8">
-                    <label for="inputFaixa">Aluno</label>
-                    <input type="text" class="form-control" id="Faixa" maxlength="50">
+                    <label for="inputAluno">Aluno</label>
+                    <input type="text" class="form-control" id="aluno" maxlength="50">
                 </div>
             </div>
         </form>
