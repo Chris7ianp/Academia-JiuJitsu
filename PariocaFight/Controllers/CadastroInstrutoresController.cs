@@ -24,11 +24,7 @@ namespace PariocaFight.Controllers
 
             var instrutor = instrutorService.ObterInstrutores(nome);
 
-            //if (instrutor == null)
-            //{
-            //    return Json(new { });
-            //}
-
+         
             return Json(instrutor);
         }
 

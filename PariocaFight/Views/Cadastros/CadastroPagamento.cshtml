@@ -1,0 +1,153 @@
+﻿@* @{
+    ViewData["Title"] = "Cadastro de Alunos";
+}
+<h1>@ViewData["Title"]</h1> *@
+
+<style>
+    body {
+        background-color: #f2f2f2;
+    }
+
+    .centered {
+        text-align: center;
+    }
+
+</style>
+
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' />
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+@* <p>Bem vindo(a) a página de Cadastro de Alunos</p> *@
+<div class="centered">
+    <img src="@Url.Content("~/imagens/logo.png")" alt="Logo" width="auto" height="130">
+</div>
+
+<br />
+
+
+
+<script>
+    //Buscar Aluno
+    $(document).on('change', '#Nome', function (e) {
+        $.ajax({
+            url: '/CadastroAluno/BuscarAluno',
+            type: "POST",
+            data: {
+                Nome: $('#Nome').val(),
+            },
+            success: function (result) {
+
+                if (result && result.nome) {
+                    console.log(result);
+
+                    $('#Nome').val(result.nome);
+                    $('#SobreNome').val(result.sobrenome);
+                    $('#Idade').val(result.idade);
+                    $('#Contato').val(result.contato);
+                    $('#Faixa').val(result.faixa);
+                    $('#NomeResponsavel').val(result.nomeResponsavel);
+
+                } else {
+
+                    alert("Aluno não cadastrado!");
+                }
+            },
+            error: function (xhr, status, error) {
+                $('#loading').hide();
+                console.error("Erro na requisição AJAX:", status, error);
+                alert("Erro na requisição ao servidor.");
+            }
+        });
+    });
+
+    //Salvar (insert || update)
+    $(document).on('click', '#btnSalvar', function () {
+        $.ajax({
+            url: '/CadastroAluno/SalvarAluno',
+            type: "POST",
+            data: {
+                Nome: $('#Nome').val(),
+                Sobrenome: $('#SobreNome').val(),
+                Idade: $('#Idade').val(),
+                Contato: $('#Contato').val(),
+                Faixa: $('#Faixa').val(),
+                NomeResponsavel: $('#NomeResponsavel').val(),            
+            },
+            
+            success: function (result) {
+                alert('Aluno salvo com sucesso!');
+
+                //window, location.reload(); atualizar a pagina
+            }, 
+            error: function (xhr, status, error) {
+                console.error('Erro ao salvar aluno:', error);
+                alert('Ocorreu um erro ao salvar o aluno. Tente novamente mais tarde.');
+            }
+        })
+    });
+
+    //Botão Cancelar
+    $(document).on('click', '#btnCancelar', function () {
+        $('#Nome').val('');
+        $('#SobreNome').val('');
+        $('#Idade').val('');
+        $('#Contato').val('');
+        $('#Faixa').val('');
+        $('#NomeResponsavel').val('');
+    });
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Pagamento 💳💵💰</div>
+    <div class="panel-body" style="height:auto; margin-block-end:1px; ">
+
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputValor">Forma de Pagamento</label>
+                <select class="form-select form-control" aria-label="Default select example">
+                    <option selected>Selecione</option>
+                    <option value="debito">Débito</option>
+                    <option value="credito">Crédito</option>
+                    <option value="pix">Pix</option>
+                        <option value="dinheiro">Dinheiro</option>
+                </select>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="inputValor">Valor</label>
+                    <input type="text" class="form-control" id="valor" maxlength="50">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="inputstatus">Status</label>
+                    <input  type="text" class="form-control" id="status" maxlength="20">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputDtPagamento">Data de Pagamento*</label>
+                    <input type="date" class="form-control" id="DtPagamento" maxlength="20">
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="inputFaixa">Aluno</label>
+                    <input type="text" class="form-control" id="Faixa" maxlength="50">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
+<button type="submit" class="btn btn-danger" id="btnCancelar">Cancelar</button>
+
