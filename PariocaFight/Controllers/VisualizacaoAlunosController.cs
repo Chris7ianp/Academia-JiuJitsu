@@ -18,11 +18,11 @@ namespace PariocaFight.Controllers
         }
 
 
-        public IActionResult Index(int pageNumber = 1, int pageSize = 3)
+        public IActionResult Index(int pageNumber = 1, int pageSize = 10)
         {
             if (pageSize <= 0)
             {
-                pageSize = 3;
+                pageSize = 10;
             }
 
             var alunos = _alunoRepository.GetAlunosPaginated(pageNumber, pageSize);
@@ -30,14 +30,14 @@ namespace PariocaFight.Controllers
 
             if (totalAlunos == 0)
             {
-                return View("~/Views/Visualizacao/AlunoVisualizacao.cshtml", Enumerable.Empty<object>());
+                return View("~/Views/Visualizacao/Alunos/AlunoVisualizacao.cshtml", Enumerable.Empty<object>());
             }
 
             ViewBag.TotalAlunos = totalAlunos;
             ViewBag.PageSize = pageSize;
             ViewBag.PageNumber = pageNumber;
 
-            return View("~/Views/Visualizacao/AlunoVisualizacao.cshtml", alunos);
+            return View("~/Views/Visualizacao/Alunos/AlunoVisualizacao.cshtml", alunos);
         }
 
         public IActionResult Edit(int id)
@@ -47,7 +47,7 @@ namespace PariocaFight.Controllers
             {
                 return NotFound();
             }
-            return View("~/Views/Visualizacao/Edit.cshtml", aluno); 
+            return View("~/Views/Visualizacao/Alunos/AlunoEditar.cshtml", aluno); 
         }
 
         [HttpPost]
@@ -69,7 +69,7 @@ namespace PariocaFight.Controllers
                 _alunoRepository.DeleteAluno(id);
                 return RedirectToAction("Index");
             }
-            return View("~/Views/Visualizacao/AlunoVisualizacao.cshtml", id);
+            return View("~/Views/Visualizacao/Alunos/AlunoVisualizacao.cshtml", id);
         }
 
 

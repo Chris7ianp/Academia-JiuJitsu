@@ -58,7 +58,7 @@ namespace PariocaFight.Services
 				                                            sobrenome = '{instrutores.Sobrenome}',
 				                                            faixa = '{instrutores.Faixa}',
 				                                            ArteMarcial = '{instrutores.ArteMarcial}'
-		                                            where nome = 'Parioca'";
+		                                            where nome = '{instrutores.Nome}'";
 
                         querys.Add(updateInstrutores);
                     }

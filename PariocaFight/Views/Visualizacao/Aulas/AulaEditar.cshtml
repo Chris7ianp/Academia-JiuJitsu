@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model PariocaFight.VO.AulasVO
+
+
+<style>
+    body {
+        background-color: #f2f2f2;
+    }
+
+    .centered {
+        text-align: center;
+    }
+</style>
+
+
+<div class="centered">
+    <img src="@Url.Content("~/imagens/logo.png")" alt="Logo" width="auto" height="130">
+       <h3>Editar Aluno</h3>
+
+</div>
+
+<br />
+
+
+
+<div class="card">
+    <div class="card-header"></div>
+    <div class="card-body" style="height:auto; margin-block-end:1px;">
+        <form asp-action="Editar" method="Post">
+
+            <input type="hidden" asp-for="Aulaid" />
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="NomeAula"></label>
+                    <input asp-for="NomeAula" class="form-control" />
+                    <span asp-validation-for="NomeAula" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label asp-for="Nome"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label asp-for="DiaSemana"></label>
+                    <input asp-for="DiaSemana" class="form-control" />
+                    <span asp-validation-for="DiaSemana" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Horario"></label>
+                    <input asp-for="Horario" class="form-control" />
+                    <span asp-validation-for="Horario" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a asp-action="Index" class="btn btn-danger">Cancelar</a>
+
+
+        </form>
+    </div>
+</div>

@@ -32,22 +32,7 @@ namespace PariocaFight.Controllers
 
             var instrutor = aulaService.BuscarInstrutor();
 
-            //foreach(var ins in instrutor)
-            //{
-            //    aulas.Nome = ins.Nome;
-            //}
-
-            //if(aulas != null)
-            //{
-            //    var instrutor = instrutores.ObterInstrutores(aulas.Nome);
-
-            //    aulas.Nome = instrutor.Nome;
-            //}
-
-            ////var instrutor = instrutores.ObterInstrutores(aulas.Nome);
-
-            ////aulas.Nome = instrutor.Nome;
-
+           
             return Json(aulas);
         }
 
@@ -58,9 +43,7 @@ namespace PariocaFight.Controllers
             var aulaVo = new AulasVO();
 
             var instrutores = aulaService.BuscarInstrutor();
-
-            //intergracaoDeParaVO.IdDescricao = result.Select(s => new IdDescricaoVO { Id = s.Id, Descricao = string.Concat(s.Id, " - ", s.Descricao) }).ToList();
-
+           
             aulaVo.instrutoresVO = instrutores.Select(s => new InstrutoresVO { Nome = s.Nome, instrutorId = s.InstrutorId }).ToList();
 
             return Json(aulaVo.instrutoresVO);

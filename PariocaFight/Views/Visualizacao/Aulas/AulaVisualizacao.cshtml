@@ -1,0 +1,98 @@
+﻿@model List<PariocaFight.VO.AulasVO>
+
+
+
+
+
+
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' />
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+<style>
+    body {
+        background-color: #f2f2f2;
+    }
+
+    .centered {
+        text-align: center;
+    }
+</style>
+
+
+<div class="centered">
+    <img src="@Url.Content("~/imagens/logo.png")" alt="Logo" width="auto" height="130">
+    <h2>Aulas 📚</h2>
+</div>
+
+<br />
+
+<div class="card card-default">
+    <div class="card-heading" style="padding:10px"></div>
+    <div class="card-body" width="auto" style="height:auto; margin-block-end:1px;">
+        <form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome da Aula</th>
+                        <th>Horario</th>
+                        <th>Dia da Semana</th>
+                        <th>Nome do Instrutor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var aula in Model)
+                    {
+                        <tr>
+                            <td>@aula.Aulaid</td>
+                            <td>@aula.NomeAula</td>
+                            <td>@aula.Horario</td>
+                            <td>@aula.DiaSemana</td>
+                            <td>@aula.Nome</td>
+                            <td>
+                                <a asp-action="Editar" asp-route-id="@aula.Aulaid" class="btn btn-warning">Editar</a>
+
+                                <a asp-action="Deletar" asp-route-id="@aula.Aulaid"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Tem certeza de que deseja excluir este instrutor?');">
+                                    Deletar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+            <div class="pagination">
+                @{
+                    var totalAulas = ViewBag.TotalAulas ?? 0;
+                    var tamanhoPagina = ViewBag.tamanhoPagina ?? 1;
+                    var numeroPagina = ViewBag.numeroPagina ?? 1;
+                                       
+                    var totalPages = (int)Math.Ceiling((double)totalAulas / tamanhoPagina);
+
+                    if (totalPages > 1)
+                    {
+                        for (var i = 1; i <= totalPages; i++)
+                        {
+                            <a asp-action="Index" asp-route-numeroPagina="@i" asp-route-tamanhoPagina="@tamanhoPagina"
+                               class="btn btn-warning @(i == numeroPagina ? "active" : "")">@i</a>
+
+                        }
+                    }
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

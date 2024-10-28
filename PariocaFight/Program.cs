@@ -18,6 +18,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<AlunoRepository>();
+builder.Services.AddTransient<InstrutorRepository>();
+builder.Services.AddTransient<AulaRepository>();
+builder.Services.AddTransient<PagamentoRepository>();
 
 
 var app = builder.Build();
