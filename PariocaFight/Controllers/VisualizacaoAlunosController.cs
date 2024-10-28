@@ -17,12 +17,36 @@ namespace PariocaFight.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    IEnumerable<AlunosVO> alunos = _alunoRepository.GetAllAlunos();
+
+        //    return View("~/Views/Visualizacao/CadastroAluno.cshtml", alunos);
+        //}
+
+        public IActionResult Index(int pageNumber = 1, int pageSize = 3)
         {
-            IEnumerable<AlunosVO> alunos = _alunoRepository.GetAllAlunos();
-            return View("~/Views/Visualizacao/CadastroAluno.cshtml", alunos);
+            if (pageSize <= 0)
+            {
+                pageSize = 3;
+            }
+
+            var alunos = _alunoRepository.GetAlunosPaginated(pageNumber, pageSize);
+            var totalAlunos = _alunoRepository.GetTotalAlunos();
+
+            if (totalAlunos == 0)
+            {
+                return View("~/Views/Visualizacao/AlunoVisualizacao.cshtml", Enumerable.Empty<object>());
+            }
+
+            ViewBag.TotalAlunos = totalAlunos;
+            ViewBag.PageSize = pageSize;
+            ViewBag.PageNumber = pageNumber;
+
+            return View("~/Views/Visualizacao/AlunoVisualizacao.cshtml", alunos);
         }
 
-       
+
+
     }
 }

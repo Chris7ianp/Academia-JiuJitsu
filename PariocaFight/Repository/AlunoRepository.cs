@@ -5,6 +5,7 @@ using PariocaFight.Data;
 using PariocaFight.VO;
 using System.Data;
 using System.Data.Common;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PariocaFight.Repository
 {
@@ -27,6 +28,32 @@ namespace PariocaFight.Repository
 
                 dbconnection.Open();
                 return dbconnection.Query<AlunosVO>(query).ToList();
+            }
+        }
+
+        public IEnumerable<AlunosVO> GetAlunosPaginated(int pageNumber, int pageSize)
+        {
+            using (IDbConnection dbconnection = Connection)
+            {
+                var offset = (pageNumber - 1) * pageSize;
+                var sql = @"SELECT * FROM Alunos 
+                    ORDER BY AlunoId 
+                    OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY"
+                ;
+
+                dbconnection.Open();
+                return dbconnection.Query<AlunosVO>(sql, new { Offset = offset, PageSize = pageSize });
+            }
+        }  
+        
+        public int GetTotalAlunos()
+        {
+            using (IDbConnection dbconnection = Connection)
+            {
+                var sql = "SELECT COUNT(*) FROM Alunos";
+
+                return dbconnection.ExecuteScalar<int>(sql);
+
             }
         }
     }
