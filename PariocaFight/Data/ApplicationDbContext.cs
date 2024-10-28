@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PariocaFight.VO;
 
 namespace PariocaFight.Data
 {
@@ -9,5 +10,6 @@ namespace PariocaFight.Data
             : base(options)
         {
         }
+        public DbSet<PariocaFight.VO.AlunosVO> AlunosVO { get; set; } = default!;
     }
 }
