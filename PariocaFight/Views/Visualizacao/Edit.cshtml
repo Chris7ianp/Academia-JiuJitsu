@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model PariocaFight.VO.AlunosVO
+
+
+<style>
+    body {
+        background-color: #f2f2f2;
+    }
+
+    .centered {
+        text-align: center;
+    }
+</style>
+
+
+<div class="centered">
+    <img src="@Url.Content("~/imagens/logo.png")" alt="Logo" width="auto" height="130">
+       <h3>Editar Aluno</h3>
+
+</div>
+
+<br />
+
+
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="AlunoId" />
+
+    <div class="form-group">
+        <label asp-for="Nome"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Idade"></label>
+        <input asp-for="Idade" class="form-control" />
+        <span asp-validation-for="Idade" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Sobrenome"></label>
+        <input asp-for="Sobrenome" class="form-control" />
+        <span asp-validation-for="Sobrenome" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Faixa"></label>
+        <input asp-for="Faixa" class="form-control" />
+        <span asp-validation-for="Faixa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Contato"></label>
+        <input asp-for="Contato" class="form-control" />
+        <span asp-validation-for="Contato" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NomeResponsavel"></label>
+        <input asp-for="NomeResponsavel" class="form-control" />
+        <span asp-validation-for="NomeResponsavel" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-danger">Cancelar</a>
+</form>

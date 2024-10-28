@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PariocaFight.Data;
 using PariocaFight.VO;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -56,5 +57,47 @@ namespace PariocaFight.Repository
 
             }
         }
+
+        public AlunosVO GetAlunoById(int id)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                var sql = "SELECT * FROM Alunos WHERE AlunoId = @Id";
+                dbConnection.Open();
+                return dbConnection.QueryFirstOrDefault<AlunosVO>(sql, new { Id = id });
+            }
+        }
+
+        public void UpdateAluno(AlunosVO aluno)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                var sql = @"UPDATE alunos
+                             SET nome = @Nome,
+                                 Sobrenome = @Sobrenome,
+                                 idade = @Idade,
+                                 faixa = @Faixa,
+                                 contato = @Contato,
+                                 NomeResponsavel = @NomeResponsavel
+                             WHERE AlunoId = @AlunoId;";
+
+                dbConnection.Open();
+                dbConnection.Execute(sql, aluno);
+            }
+        }
+
+        public void DeleteAluno(int id)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                var sql = @"DELETE FROM alunos WHERE AlunoId = @AlunoId";
+
+
+                dbConnection.Open();
+                dbConnection.Execute(sql, new { AlunoId = id });
+            }
+        }
+        
+
     }
 }

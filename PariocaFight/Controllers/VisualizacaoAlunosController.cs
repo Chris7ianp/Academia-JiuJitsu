@@ -10,19 +10,13 @@ namespace PariocaFight.Controllers
         private readonly AlunoRepository _alunoRepository;
         private readonly ApplicationDbContext _context;
 
-        // Combine os dois construtores em um só
+        
         public VisualizacaoAlunosController(AlunoRepository alunoRepository, ApplicationDbContext context)
         {
             _alunoRepository = alunoRepository;
             _context = context;
         }
 
-        //public IActionResult Index()
-        //{
-        //    IEnumerable<AlunosVO> alunos = _alunoRepository.GetAllAlunos();
-
-        //    return View("~/Views/Visualizacao/CadastroAluno.cshtml", alunos);
-        //}
 
         public IActionResult Index(int pageNumber = 1, int pageSize = 3)
         {
@@ -44,6 +38,38 @@ namespace PariocaFight.Controllers
             ViewBag.PageNumber = pageNumber;
 
             return View("~/Views/Visualizacao/AlunoVisualizacao.cshtml", alunos);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var aluno = _alunoRepository.GetAlunoById(id);
+            if (aluno == null)
+            {
+                return NotFound();
+            }
+            return View("~/Views/Visualizacao/Edit.cshtml", aluno); 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(AlunosVO aluno)
+        {
+            if (ModelState.IsValid)
+            {
+                _alunoRepository.UpdateAluno(aluno); 
+                return RedirectToAction("Index"); 
+            }
+            return View(aluno);
+        }
+
+        public IActionResult delete(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                _alunoRepository.DeleteAluno(id);
+                return RedirectToAction("Index");
+            }
+            return View("~/Views/Visualizacao/AlunoVisualizacao.cshtml", id);
         }
 
 
