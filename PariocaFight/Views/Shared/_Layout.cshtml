@@ -22,7 +22,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex">
-                    
+
                     <ul class="navbar-nav flex-grow-1">
                         <!-- Dropdown item -->
                         <li class="nav-item dropdown">
@@ -34,7 +34,7 @@
                                 <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroInstrutores">Instrutores</a></li>
                                 <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroAulas">Aulas</a></li>
                                 <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroPagamentos">Pagamentos</a></li>
-                                
+
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -46,14 +46,16 @@
                                 <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoInstrutor">Instrutor</a></li>
                                 <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoAula">Aulas</a></li>
                                 <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoPagamento">Pagamento</a></li>
-                               
+
 
                             </ul>
                         </li>
                     </ul>
                 </div>
 
-                <partial name="_LoginPartial" />
+                <a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+
+                @* <partial name="Login" /> *@
             </div>
 
         </nav>
@@ -64,11 +66,11 @@
         </main>
     </div>
     <br />
-    @* <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - PariocaFight - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div> *@
-    @* </footer> *@
+            &copy; 2024 - Christian Silva
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

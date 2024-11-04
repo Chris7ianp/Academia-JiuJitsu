@@ -4,6 +4,7 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Configuration;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
 
 namespace PariocaFight.Services
 {

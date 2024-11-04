@@ -18,11 +18,11 @@ namespace PariocaFight.Controllers
         }
 
 
-        public IActionResult Index(int pageNumber = 1, int pageSize = 10)
+        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
             if (pageSize <= 0)
             {
-                pageSize = 10;
+                pageSize = 5;
             }
 
             var alunos = _alunoRepository.GetAlunosPaginated(pageNumber, pageSize);

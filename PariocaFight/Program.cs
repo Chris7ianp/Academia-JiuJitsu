@@ -22,6 +22,14 @@ builder.Services.AddTransient<InstrutorRepository>();
 builder.Services.AddTransient<AulaRepository>();
 builder.Services.AddTransient<PagamentoRepository>();
 
+builder.Services.AddAuthentication("Identity.Login")
+    .AddCookie("Identity.Login", config =>
+    {
+        config.Cookie.Name = "Identity.Login";
+        config.LoginPath = "/Login";
+        config.AccessDeniedPath = "/Home";
+        config.ExpireTimeSpan = TimeSpan.FromHours(1);
+    });
 
 var app = builder.Build();
 
@@ -42,6 +50,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllerRoute(

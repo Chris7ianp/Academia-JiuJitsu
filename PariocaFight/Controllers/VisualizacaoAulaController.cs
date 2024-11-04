@@ -22,7 +22,7 @@ namespace PariocaFight.Controllers
         {
             if (numeroPagina == 0)
             {
-                numeroPagina = 10; 
+                numeroPagina = 5; 
             }
 
             var aulas = _aulaRepository.ObterAulaPaginado(numeroPagina, tamanhoPagina);

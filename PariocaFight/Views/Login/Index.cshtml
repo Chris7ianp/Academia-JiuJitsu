@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+
+<link rel="stylesheet" href="~/css/Login-Page.css" />
+
+
+<div class="container-fluid ps-md-0">
+    <div class="row g-0">
+        <div id="logo" class="d-none d-md-flex col-md-4 col-lg-6 bg-image justify-content-center align-items-center">
+            <img src="@Url.Content("~/imagens/logo.png")" alt="Logo" style="width:50%; height:50%; ">
+
+        </div>
+
+        <div class="col-md-8 col-lg-6">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            <h3 class="login-heading mb-4">Seja bem-vindo(a)!</h3>
+
+                            <!-- Sign In Form -->
+                            <form asp-controller="Login" asp-action="Logar" method="post">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Login">
+                                    <label for="username">Login</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="senha2" name="senha2" placeholder="Password">
+                                    <label for="senha2">Senha</label>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck" name="manterlogado">
+                                    <label class="form-check-label" for="rememberPasswordCheck">
+                                        Manter Logado?
+
+                                    </label>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button class="btn btn-lg btn-warning btn-login text-uppercase fw-bold mb-2" type="submit">Logar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
