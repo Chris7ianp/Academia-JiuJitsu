@@ -1,5 +1,6 @@
 using FluentAssertions.Common;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+//using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PariocaFight.Data;
 using PariocaFight.Repository;
@@ -13,8 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<AlunoRepository>();
@@ -22,14 +23,19 @@ builder.Services.AddTransient<InstrutorRepository>();
 builder.Services.AddTransient<AulaRepository>();
 builder.Services.AddTransient<PagamentoRepository>();
 
-builder.Services.AddAuthentication("Identity.Login")
-    .AddCookie("Identity.Login", config =>
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
-        config.Cookie.Name = "Identity.Login";
-        config.LoginPath = "/Login";
-        config.AccessDeniedPath = "/Home";
-        config.ExpireTimeSpan = TimeSpan.FromHours(1);
+        options.LoginPath = "/Login/Index"; // Caminho para a página de login
+        options.LogoutPath = "/Login/Logout"; // Caminho para logout
+        options.AccessDeniedPath = "/Login/AcessoNegado"; // Caminho para acesso negado
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Cookie expira em 30 minutos
+        options.SlidingExpiration = true; // Renova o tempo de expiração se o usuário continuar ativo
     });
+
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -50,12 +56,17 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
-app.UseAuthorization();
+
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.Run();

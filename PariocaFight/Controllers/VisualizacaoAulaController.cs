@@ -82,8 +82,6 @@ namespace PariocaFight.Controllers
                 _aulaRepository.UpdateAula(aula);
             return View("~/Views/Visualizacao/Aulas/AulaEditar.cshtml", aula);
 
-
-
         }
 
         public IActionResult Deletar(int id)

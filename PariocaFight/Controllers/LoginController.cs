@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Login.Controllers
@@ -11,6 +13,8 @@ namespace Login.Controllers
     public class LoginController : Controller
     {
         // GET: Login
+
+     
         public ActionResult Index()
         {
 
@@ -22,56 +26,74 @@ namespace Login.Controllers
             return View();
         }
 
+
+        //public IActionResult Logar()
+        //{
+        //    return View();
+        //}
+
         [HttpPost]
         public async Task<IActionResult> Logar(string username, string senha2, bool manterlogado)
         {
-            using (SqlConnection sqlConnection = new SqlConnection("Server=DESKTOP-905VOI2\\MSSQLSERVER2022;Database=Login;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"))
+            // String de conexão
+            string connectionString = "Server=DESKTOP-905VOI2\\MSSQLSERVER2022;Database=Login;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
+
+            // Abrindo conexão com o banco
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 await sqlConnection.OpenAsync();
 
-                SqlCommand sqlCommand = sqlConnection.CreateCommand();
-                sqlCommand.CommandText = $"select * from usuarios where nomeusuario = '{username}' and senha = '{senha2}'";
-
-                SqlDataReader reader = await sqlCommand.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
+                // Consulta ao banco de dados
+                string query = "SELECT Id, NomeUsuario FROM Usuarios WHERE NomeUsuario = @Username AND Senha = @Senha";
+                using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
                 {
-                    int id = reader.GetInt32(0);
-                    string nomeusuario = reader.GetString(1);
-                    //string senha = reader.GetString(2);
+                    sqlCommand.Parameters.AddWithValue("@Username", username);
+                    sqlCommand.Parameters.AddWithValue("@Senha", senha2);
 
-                    List<Claim> diretosAcesso = new List<Claim>
+                    SqlDataReader reader = await sqlCommand.ExecuteReaderAsync();
+
+                    // Verifica se o usuário foi encontrado
+                    if (await reader.ReadAsync())
                     {
-                        new Claim(ClaimTypes.NameIdentifier, id.ToString()),
-                        new Claim(ClaimTypes.Name,nomeusuario)
-                    };
+                        int id = reader.GetInt32(0); // Id do usuário
+                        string nomeUsuario = reader.GetString(1); // Nome do usuário
 
+                        // Criando os claims (informações sobre o usuário)
+                        var diretosAcesso = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.NameIdentifier, id.ToString()),
+                            new Claim(ClaimTypes.Name, nomeUsuario)
+                        };
 
-                    var identity = new ClaimsIdentity(diretosAcesso, "Identity.Login");
+                                // Criando a identidade e o principal
+                        var identity = new ClaimsIdentity(diretosAcesso, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var userPrincipal = new ClaimsPrincipal(identity);
 
-                    var userPrincipal = new ClaimsPrincipal(new[] { identity });
+                        // Configurando as propriedades de autenticação
+                        var authProperties = new AuthenticationProperties
+                        {
+                            IsPersistent = manterlogado, // Mantém login após fechar o navegador
+                            ExpiresUtc = DateTime.UtcNow.AddHours(1) // Expira em 1 hora
+                        };
 
-                    await HttpContext.SignInAsync(userPrincipal, new AuthenticationProperties
-                    {
-                        IsPersistent = manterlogado,
-                        ExpiresUtc = DateTime.Now.AddHours(1)
-                    });
+                        // Realiza o login
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
 
+                        // Redireciona para a página inicial
+                        return RedirectToAction("Index", "Home");
+                    }
 
-                    return View("~/Views/Home/Index.cshtml"/*new { Msg = "Usuário logado com sucesso!" }*/);
+                    // Usuário não encontrado
+                    return Json(new { Msg = "Usuário não encontrado! Verifique suas credenciais!" });
                 }
-
-                return Json(new { Msg = "Usuário não encontrado! Verifique suas credenciais!" });
             }
         }
 
+
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                await HttpContext.SignOutAsync();
-
-            }
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Login");
         }
     }

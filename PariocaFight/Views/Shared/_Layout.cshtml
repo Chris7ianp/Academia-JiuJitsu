@@ -15,47 +15,57 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PariocaFight</a>
+            <div class="container-fluid">  
+                @if (User.Identity.IsAuthenticated)
+                {
+                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PariocaFight</a> *@
+                    <a style="font-size:20px">@User.Identity.Name</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex">
 
-                    <ul class="navbar-nav flex-grow-1">
-                        <!-- Dropdown item -->
-                        <li class="nav-item dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" style="font-size:20px" aria-expanded="true">
-                                Cadastros
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroAluno">Alunos</a></li>
-                                <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroInstrutores">Instrutores</a></li>
-                                <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroAulas">Aulas</a></li>
-                                <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroPagamentos">Pagamentos</a></li>
+                
+                    <div class="navbar-collapse collapse d-sm-inline-flex">
 
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" style="font-size:20px" aria-expanded="true">
-                                Visualização
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoAlunos">Alunos</a></li>
-                                <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoInstrutor">Instrutor</a></li>
-                                <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoAula">Aulas</a></li>
-                                <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoPagamento">Pagamento</a></li>
+                        <ul class="navbar-nav flex-grow-1">
+                            <!-- Dropdown item -->
+                            <li class="nav-item dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" style="font-size:15px" aria-expanded="true">
+                                    Cadastros
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroAluno">Alunos</a></li>
+                                    <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroInstrutores">Instrutores</a></li>
+                                    <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroAulas">Aulas</a></li>
+                                    <li><a class="dropdown-item" style="font-size:15px" href="~/CadastroPagamentos">Pagamentos</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" style="font-size:15px" aria-expanded="true">
+                                    Visualização
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoAlunos">Alunos</a></li>
+                                    <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoInstrutor">Instrutor</a></li>
+                                    <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoAula">Aulas</a></li>
+                                    <li><a class="dropdown-item" style="font-size:15px" href="~/VisualizacaoPagamento">Pagamento</a></li>
 
 
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <form asp-controller="Login" asp-action="Logout" method="post" style="display:inline;">
+                        <button type="submit" style="background: none; border: none; color: black; cursor: pointer;">Sair</button>
+                    </form>
+                }else{
+                    <a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="Index"></a>
 
                 @* <partial name="Login" /> *@
+                }
             </div>
 
         </nav>
